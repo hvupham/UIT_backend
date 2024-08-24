@@ -27,6 +27,14 @@ const postController = {
         } catch (error){
             res.status(500).json({ error: error.message });
         }
+    },
+    getAll: async(req,res) =>{
+        try {
+            const posts = await Post.find().sort({ createdAt: -1 });
+            res.json(posts);
+        } catch (error){
+            res.status(500).json({ error: error.message });
+        }
     }
 }
 module.exports = postController;
