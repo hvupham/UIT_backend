@@ -1,7 +1,7 @@
 // models/postModel.js
 
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema } = mongoose; 
 
 const postSchema = new Schema({
   user: {

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const userSchema = new mongoose.Schema(
+const Userschema = new mongoose.Schema(
   {
     username: {
       type: String,
@@ -21,9 +22,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    posts: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'posts', // Tham chiếu đến model post
+    }],
   
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("user", userSchema);
+const User =  mongoose.model("User", Userschema);
+module.exports = User;
