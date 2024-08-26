@@ -39,7 +39,6 @@ const postController = {
             .sort({ createdAt: -1 })
             .populate('user', 'username'); // cho phép hiển thị thông tin từ user liên quan
             
-            // const username = 
             res.json(posts);
         } catch (error){
             res.status(500).json({ error: error.message });
