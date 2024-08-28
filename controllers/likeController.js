@@ -4,40 +4,30 @@ const Post = require('../models/postModel')
 const likeController = {
     like: async(req, res) => {
         try {
-            const {userId, postId} = req.body;
-            const existingUserLike = await Post.findOne({_id: postId, likes: userId});
+            const {user, postId} = req.body;
+            // console.log({user,postId})
+            const existingUserLike = await Post.findOne({_id: postId, likes: user});
             if(existingUserLike) {
                 await Post.findByIdAndUpdate(postId,{
-                    $pull: {likes: userId},
+                    $pull: {likes: user},
                 });
-                res.status(200).json({message: "Unliked post"});
+                const pos = await Post.findById(postId)
+                // console.log(pos)
+
+                res.status(200).json({message: "Unliked post", pos});
             } else {
                 await Post.findByIdAndUpdate(postId,{
-                    $push: {likes: userId},
+                    $push: {likes: user},
                 });
-                res.status(201).json({message: "Liked post"});
+                const pos = await Post.findById(postId)
+                // console.log(pos)
+                res.status(200).json({message: "Liked post he", pos});
             }
 
 
         } catch (err){
             res.status(500).json({ error: err.message });
         }
-    // },
-    // unlike: async(req, res) => {
-    //     try {
-    //         const {userId, postId} = req.body;
-    //         const existingUserLike = await Post.findOne({_id: postId, likes: userId});
-    //         if(existingUserLike) {
-    //             await Post.findByIdAndUpdate(postId,{
-    //                 $pull: {likes: userId},
-    //             });
-    //             res.status(200).json({message: "Unliked post"});
-    //         } else {
-    //             res.status(401).json({message: "You can't unlike this post"});
-    //         }
-    //     } catch (err){
-    //         res.status(500).json({ error: err.message });
-    //     }
 }
 }
 

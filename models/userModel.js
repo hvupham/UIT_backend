@@ -26,6 +26,12 @@ const Userschema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'posts', // Tham chiếu đến model post
     }],
+    avatar: {
+      type: String,
+      trim: true,
+
+      
+    }
   
   },
   { timestamps: true }
